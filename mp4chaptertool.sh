@@ -64,6 +64,8 @@ ffmpeg -i $1 -filter:v "select='gt(scene,0.4)',metadata=print:file=showinfo.txt"
 grep pts_time:[0-9.]* showinfo.txt -o | grep -E '[0-9]+(?:\.[0-9]*)?' -o > timestamps.txt
 rm showinfo.txt
 
+##  images are the screenshot of the begining of each chapter found
+##  select yes if you want to review the images after the script is done
 echo
 echo
 echo "Do you want to keep the images? [y/N]"
@@ -73,6 +75,9 @@ then
     rm *.png
 fi
 
+##  the metadata file (metadata.txt) file contains the data needed for
+##  chapter creation.  Selecting yes will create a new metadata file.
+##  Selecting no will use an existing metadata file 
 echo
 echo "Do you need a chapter metadata file? [y/N]"
 read metaFile
@@ -82,6 +87,10 @@ then
     create_chapters
 fi
 
+##  if you do not want to create the chapters, select no.  Selecting
+##  yes will tell the script to use the metadata.txt file to create 
+##  chapters from the video specified, but will output the modified 
+##  version as 'output.mp4'
 echo
 echo "Do you want to create chapters in video? [y/N]"
 read writeChapters
@@ -92,5 +101,6 @@ then
     echo "\n\nNew file with chapters:  output.mp4"
 fi
 
+##  remove temporary file
 rm timestamps.txt
 echo "Done!"
