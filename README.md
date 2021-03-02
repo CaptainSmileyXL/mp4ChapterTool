@@ -7,7 +7,7 @@ for logical places to add a chapter.
 
 It uses ffmpeg to analyze the video for logical breaks.  It can output a screenshot
 for each location found for review.  The script can also generate a metadata file 
-and insert the times found during the analysis.  THe user can also modify this file
+and insert the times found during the analysis.  The user can also modify metadata file
 and use it later for chapter modification.
 
 
