@@ -5,6 +5,12 @@
 ##  Date:   2/26/2021
 ##  License:    Creative Commons Zero v1.0 Universal
 
+##  this script is designed to find and add chapters to videos where there
+##  are none (such as compilation videos).  It will analyze input videos
+##  looking for breaks where chapters could be.  It can create the proper
+##  metadata file for chapter creation.  You can edit this file manually
+##  and have the script create a new video file with the added chapters.
+
 
 function convert_time {
     local T=$1
