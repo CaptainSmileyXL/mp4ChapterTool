@@ -12,6 +12,17 @@
 ##  and have the script create a new video file with the added chapters.
 
 
+function split_video {
+    local input="output.mp4"
+    ffprobe -print_format csv -show_chapters "$input" | cut -d ',' -f '2,5,7' |
+    while IFS=, read chapter start end
+    do
+#        echo "File=${input%.*}-$chapter.${input##*.}\tStart=$start\tEnd=$end"
+        ffmpeg -nostdin -fflags +genpts -i "$input" -ss "$start" -to "$end" -vcodec copy -acodec copy "${input%.*}-$chapter.${input##*.}"
+    done
+}
+
+
 function convert_time {
     local T=$1
     local t=${T%.*}
@@ -101,6 +112,16 @@ then
     echo "\n\nNew file with chapters:  output.mp4"
 fi
 
+echo
+echo "Do you want to split the video? [y/N]"
+read splitVid
+if [ "$splitVid" == "y" ] || [ "$splitVid" == "Y" ]
+then
+    echo "Splitting video file"
+    split_video
+fi
+
 ##  remove temporary file
 rm timestamps.txt
 echo "Done!"
+
